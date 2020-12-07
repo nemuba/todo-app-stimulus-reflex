@@ -1,0 +1,29 @@
+<tr id="todo_<%= todo.id %>">
+  <td id="todo_toggle_<%= todo.id %>">
+  <% if todo.active %>
+    <input
+      type="checkbox"
+      id="todo_active_<%= todo.id %>"
+      data-action="click->todo#toggle"
+      data-todo_id="<%= todo.id %>"
+    >
+  <% else %>
+    <input
+      checked="true"
+      type="checkbox"
+      id="todo_active_<%= todo.id %>"
+      data-action="click->todo#toggle"
+      data-todo_id="<%= todo.id %>"
+    >
+  <% end %>
+  </td>
+  <td><%= todo.title %></td>
+  <td><%= actived?(todo) %></td>
+  <td>
+  <button
+    id="button_delete_<%= todo.id %>"
+    class="todos-delete"
+    data-action="click->todo#delete"
+    data-todo_id="<%= todo.id %>"
+  >Delete</button></td>
+</tr>

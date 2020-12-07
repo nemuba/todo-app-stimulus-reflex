@@ -1,0 +1,21 @@
+<div class="Todos" data-controller="todo">
+<%= render 'form', todo: @todo %>
+
+<h1>Todos - <%= @todos.count %></h1>
+
+<table>
+  <thead>
+    <tr>
+      <th>#</th>
+      <th>Title</th>
+      <th>Active ?</th>
+      <th>Options</th>
+    </tr>
+  </thead>
+  <tbody class="todos-row">
+    <%= render @todos %>
+  </tbody>
+</table>
+
+
+</div>
