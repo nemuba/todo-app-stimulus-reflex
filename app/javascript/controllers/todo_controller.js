@@ -1,52 +1,27 @@
 import ApplicationController from './application_controller'
 
 export default class extends ApplicationController {
-  static targets = ['focus']
+  static targets = ['focus', 'count']
 
-  connect () {
-    super.connect()
-    this.focusTarget.focus()
-  }
-
-  async delete(event) {
+  submit(event) {
     event.preventDefault();
-    event.stopPropagation();
-
-    this.showLoading();
-    await this.stimulate("Todo#delete", event.currentTarget);
-    this.hideLoading();
-    this.focusTarget.focus()
+    this.stimulate("Todo#create").then(() => {
+      this.element.reset();
+      this.focusTarget.focus();
+    });
   }
 
-  async toggle(event) {
+  delete(event) {
     event.preventDefault();
-    event.stopPropagation();
-
-    this.showLoading();
-    await this.stimulate("Todo#toggle", event.currentTarget).then(payload => console.log(payload));
-    this.hideLoading();
-    this.focusTarget.focus()
+    this.stimulate("Todo#destroy", event.currentTarget);
   }
 
-  async create(event) {
+  toggle(event) {
     event.preventDefault();
-    event.stopPropagation();
-
-    const form = event.currentTarget;
-
-    this.showLoading();
-    await this.stimulate("Todo#create", event.currentTarget);
-    this.hideLoading();
-    form.reset();
-
-    this.focusTarget.focus()
+    this.stimulate("Todo#toggle", event.currentTarget);
   }
 
-  showLoading() {
-    document.body.classList.add("wait");
-  }
-
-  hideLoading() {
-    document.body.classList.remove("wait");
+  afterSubmit(event) {
+    this.focusTarget.focus();
   }
 }

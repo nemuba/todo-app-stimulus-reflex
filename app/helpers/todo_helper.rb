@@ -1,5 +1,5 @@
 module TodoHelper
   def actived?(todo)
-    todo.active? ? 'Active' : 'Inactive'
+    todo.active? ? 'Complete' : 'Incomplete'
   end
 end

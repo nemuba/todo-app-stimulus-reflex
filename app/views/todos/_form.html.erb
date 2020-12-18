@@ -1,9 +1,12 @@
-<%= form_with id: "todo-form",
-        model: todo,
-        data: {
-          action: "submit->todo#create",          
-        } do |f|
-  %>
-    <%= f.text_field :title, data: {target: 'todo.focus'} %>
-    <%= f.submit "Add todo" %>
-  <% end %>
+<%= form_with(model: todo, data: {controller: "todo"}, html: {id: 'todo_form'}) do |f| %>
+  <%= f.text_field :title, :"data-todo-target" => 'focus'  %>
+  <%= f.button data: {action: "click->todo#submit"} %>
+<% end %>
+<hr>
+<% if todo.errors.any? %>
+  <ul>
+    <% todo.errors.full_messages.each do |erro| %>
+      <li><%= erro %></li>
+    <% end %>
+  </ul>
+<% end %>

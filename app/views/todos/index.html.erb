@@ -1,7 +1,10 @@
 <div class="Todos" data-controller="todo">
 <%= render 'form', todo: @todo %>
 
-<h1>Todos - <%= @todos.count %></h1>
+<div data-controller="todo">
+<h1 id="count">Todos - <%= @count %></h1>
+<h4 id="completed">Completes - <%= Todo.completed %></h4>
+</div>
 
 <table>
   <thead>

@@ -1,7 +1,8 @@
 <tr id="todo_<%= todo.id %>">
   <td id="todo_toggle_<%= todo.id %>">
-  <% if todo.active %>
+  <% if todo.active? %>
     <input
+      checked="true"
       type="checkbox"
       id="todo_active_<%= todo.id %>"
       data-action="click->todo#toggle"
@@ -9,7 +10,6 @@
     >
   <% else %>
     <input
-      checked="true"
       type="checkbox"
       id="todo_active_<%= todo.id %>"
       data-action="click->todo#toggle"
@@ -24,6 +24,7 @@
     id="button_delete_<%= todo.id %>"
     class="todos-delete"
     data-action="click->todo#delete"
+    data-confirm="destroy?"
     data-todo_id="<%= todo.id %>"
   >Delete</button></td>
 </tr>
