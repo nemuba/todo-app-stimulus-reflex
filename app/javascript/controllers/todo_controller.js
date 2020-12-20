@@ -5,9 +5,20 @@ export default class extends ApplicationController {
 
   submit(event) {
     event.preventDefault();
-    this.stimulate("Todo#create").then(() => {
+    this.stimulate("Todo#submit").then(() => {
       this.element.reset();
       this.focusTarget.focus();
+    });
+  }
+
+  edit(e) {
+    e.preventDefault();
+
+    const btn_id = `#${e.target.id}`;
+
+    this.stimulate("Todo#edit", e.currentTarget).then(() => {
+      document.querySelector('#focus').focus();
+      // document.querySelector('#todos').hidden = true;
     });
   }
 

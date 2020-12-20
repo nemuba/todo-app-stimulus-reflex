@@ -21,6 +21,14 @@
   <td><%= actived?(todo) %></td>
   <td>
   <button
+    id="<%= "edit_#{dom_id(todo)}" %>"
+    data-action="click->todo#edit"
+    data-todo_id="<%= todo.id %>"
+    class="btn btn-success btn-sm"
+  >
+    Editar
+  </button>
+  <button
     id="button_delete_<%= todo.id %>"
     class="todos-delete btn btn-danger btn-sm"
     data-action="click->todo#delete"

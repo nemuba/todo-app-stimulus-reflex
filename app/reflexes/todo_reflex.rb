@@ -1,6 +1,17 @@
 class TodoReflex < ApplicationReflex
-  def create
-    Todo.create(todo_params)
+
+  def submit
+    if todo_params[:id].present?
+      todo = Todo.find(todo_params[:id])
+      todo.update(title: todo_params[:title])
+    else
+      Todo.create(todo_params)
+    end
+  end
+
+  def edit
+    todo = Todo.find(element.dataset[:todo_id])
+    morph "#todo_form", ApplicationController.render(partial: 'todos/form', locals: { todo: todo })
   end
 
   def change
@@ -23,6 +34,6 @@ class TodoReflex < ApplicationReflex
   private
 
   def todo_params
-    params.require(:todo).permit(:title)
+    params.require(:todo).permit(:title, :id)
   end
 end

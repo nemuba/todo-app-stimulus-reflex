@@ -1,14 +1,12 @@
 <div class="row" data-controller="todo">
-<div class="col-12">
+<div class="col-12" id="todo_form">
   <%= render 'form', todo: @todo %>
 </div>
 
-<div data-controller="todo" class="col-12">
+<div data-controller="todo" class="col-12" id="todos">
 <h1 id="count" class="title">Todos - <%= @count %></h1>
 <h4 id="completed">Completes - <%= Todo.completed %></h4>
-</div>
 
-<div class="col-12">
     <table class="table table-hover">
       <thead>
         <tr>
