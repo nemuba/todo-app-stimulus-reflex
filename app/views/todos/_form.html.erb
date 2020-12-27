@@ -1,18 +1,27 @@
-<div class="card mt-3">
-  <div class="card-header bg-primary text-white">
-    <h5 class="card-title">Todo App</h5>
+<div class="card mt-3 bg-dark text-white">
+  <div class="card-header bg-primary text-white text-center">
+    <h3>Todo Reflex</h3>
   </div>
   <div class="card-body">
 
     <%= form_with(model: todo, data: {controller: "todo"}, html: {id: 'form_todo'}) do |f| %>
       <div class="form-row ">
-        <div class="form-group col-10">
+        <div class="form-group col-12">
           <%= f.hidden_field :id %>
         </div>
-        <div class="form-group col-10">
-          <%= f.text_field :title, :"data-todo-target" => 'focus', class: 'form-control', id:'focus'  %>
+        <div class="form-group col-12">
+          <%= f.text_field :title, :"data-todo-target" => 'focus', class: 'form-control', id:'focus', data: {action: 'input->todo#change'}  %>
+          <% if todo.errors.any? %>
+            <div class="text-danger">
+              <%= todo.errors.full_messages.first %>
+            </div>
+          <% else %>
+            <div class="text-success">
+              Great!
+            </div>
+          <% end %>
         </div>
-        <div class="form-group col-2">
+        <div class="form-group col-12">
           <%= f.button data: {action: "click->todo#submit"}, class: 'btn btn-primary float-right' %>
         </div>
       </div>
@@ -20,10 +29,4 @@
   </div>
 </div>
 <hr>
-<% if todo.errors.any? %>
-  <ul>
-    <% todo.errors.full_messages.each do |erro| %>
-      <li><%= erro %></li>
-    <% end %>
-  </ul>
-<% end %>
+

@@ -1,11 +1,12 @@
 class TodoReflex < ApplicationReflex
-
   def submit
     if todo_params[:id].present?
       todo = Todo.find(todo_params[:id])
       todo.update(title: todo_params[:title])
     else
-      Todo.create(todo_params)
+      todo = Todo.new(todo_params)
+      todo.save if todo.valid?
+      @todo = todo unless todo.valid?
     end
   end
 
@@ -15,8 +16,14 @@ class TodoReflex < ApplicationReflex
   end
 
   def change
-    @todo = Todo.new(title: element['value'])
-    @todo.valid?
+    if todo_params[:id].present?
+      @todo = Todo.find(todo_params[:id])
+      @todo.title = element['value']
+      @todo.valid?
+    else
+      @todo = Todo.new(title: element['value'])
+      @todo.valid?
+    end
   end
 
   def destroy
@@ -28,7 +35,7 @@ class TodoReflex < ApplicationReflex
     todo = Todo.find(element.dataset[:todo_id])
     todo.toggle
     morph dom_id(todo), ApplicationController.render(partial: 'todos/todo', locals: { todo: todo })
-    morph '#completed', "Completed - #{Todo.completed}"
+    morph '#completed', "Completed: #{Todo.completed}"
   end
 
   private

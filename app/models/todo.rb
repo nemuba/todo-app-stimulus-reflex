@@ -6,7 +6,7 @@ class Todo < ApplicationRecord
   end
 
   def toggle
-    self.active = !self.active
-    self.save
+    self.active = !active
+    save
   end
 end
